@@ -30,11 +30,11 @@ def data_entry(game, gameID, dice, roll):
     conn.close()
 
 def data_delete():
-    c.execute("DELETE FROM rollHistory WHERE ")
+    c.execute("DELETE FROM rollHistory")
     conn.commit()
 
-    c.close()
-    conn.close()
+c.close()
+conn.close()
 
 
 
