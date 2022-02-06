@@ -1,6 +1,7 @@
 import random
 import shortuuid
 from dice_db import data_entry
+from plot import game_stats
 
 
 input_options = ['A','B','C','D']
@@ -30,13 +31,21 @@ def count_valid(message, i=1):
             print('You must input a numerical value.' + message)
 
 def run_program():
+    q = 0
     while True:
         while True:
-            choice = input_valid("(a) Start New Game\n(b) View Historical Stats\n", 2)
+            if q > 0: # checking if input was end program or new game, which will skip main menu.
+                break
+            choice = input_valid("(a) Start New Game\n(b) View Historical Stats\n(c) Close Program", 3)
             if choice == 'A':
                 break
-            else: 
+            elif choice == 'B': 
                 print('This option is in development, please check-in later.')  
+            else:
+                break
+        
+        if q == 2: #checking from ending selection input - if selected close program, q=2, which should break from program loop
+            break
 
         gameChoice = input_valid("(a) Settler's of Catan\n(b) Machi Koro\n(c) Other\n", 3)
         if choice == 'A':
@@ -65,17 +74,27 @@ def run_program():
                 data_entry(game, gameID, dice, roll)
 
             while True:
-                next = input_valid("(a) Roll Again\n(b) Change # of Dice\n(c) View game stats\n(d) Exit Program\n\nWhat next?: ", 4)
+                next = input_valid("(a) Roll Again\n(b) Change # of Dice\n(c) End Game\n\nWhat next?: ", 3)
                 if next == 'A':
                     break
                 elif next == 'B':
                     dice = count_valid("Choose # of Dice: ")
                     break
-                elif next == 'C':
-                    print('This option is in development, please check-in later.')
                 else:
                     i = 1
                     break
-        break
-                
+        while True:
+            ending = input_valid("(a) Start New Game\n(b) Main Menu\n(c) View Game Stats\n(d) Exit Program\n\nWhat next?: ", 4)
+            if ending == 'A':
+                q = 1
+                break
+            elif ending == 'B':
+                q = 0
+                break
+            elif ending == 'C':
+                game_stats(str(gameID))
+            else:
+                q = 2
+                break
+
 run_program()
