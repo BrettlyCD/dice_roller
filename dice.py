@@ -4,7 +4,7 @@ from dice_db import data_entry
 
 
 input_options = ['A','B','C','D']
-game_options = ["Settler's of Catan", "Machi Koro", "Other"]
+game_options = ["Settlers of Catan", "Machi Koro", "Other"]
 alert = "Option not available."
 
 def input_valid(message, ind, i=1):
@@ -48,19 +48,21 @@ def run_program():
 
         gameID = str(shortuuid.uuid())
 
-        dice = count_valid("Choose # of Dice: ")
+        dice = int(count_valid("Choose # of Dice: "))
         i = 0
         
         while True:
             if i == 1:
                 break
             rollList = []
-            for x in range(int(dice)):
+            for x in range(dice):
                 die = random.randint(1,6)
                 rollList.append(die)
                 print(die)
+                roll = sum(rollList)
 
-            #data_entry(gameTitle = game, id = gameID, count = dice, roll = sum(rollList))
+            if __name__ == '__main__':
+                data_entry(game, gameID, dice, roll)
 
             while True:
                 next = input_valid("(a) Roll Again\n(b) Change # of Dice\n(c) View game stats\n(d) Exit Program\n\nWhat next?: ", 4)
