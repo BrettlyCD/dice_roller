@@ -1,26 +1,17 @@
-import random 
+import random
+import shortuuid
+from dice_db import data_entry
 
-start_options = ['A','B']
+
 input_options = ['A','B','C','D']
+game_options = ["Settler's of Catan", "Machi Koro", "Other"]
 alert = "Option not available."
 
-def start_valid(message, i=1):
+def input_valid(message, ind, i=1):
     while True:
         try:
             answer = input(message).upper()
-            if answer in start_options:
-                return answer
-                break
-            else:
-                print(alert + ' Try again: ')
-        except:
-            print(alert + ' Try again: ')
-
-def input_valid(message, i=1):
-    while True:
-        try:
-            answer = input(message).upper()
-            if answer in input_options:
+            if answer in input_options[:ind]:
                 return answer
                 break
             else:
@@ -41,21 +32,38 @@ def count_valid(message, i=1):
 def run_program():
     while True:
         while True:
-            choice = start_valid("(a) Start Rolling\n(b) View Historical Stats\n")
+            choice = input_valid("(a) Start New Game\n(b) View Historical Stats\n", 2)
             if choice == 'A':
                 break
             else: 
                 print('This option is in development, please check-in later.')  
+
+        gameChoice = input_valid("(a) Settler's of Catan\n(b) Machi Koro\n(c) Other\n", 3)
+        if choice == 'A':
+            game = game_options[0]
+        elif choice == 'B':
+            game = game_options[1]
+        elif choice == 'C':
+            game = game_options[2]
+
+        gameID = str(shortuuid.uuid())
+
         dice = count_valid("Choose # of Dice: ")
         i = 0
+        
         while True:
             if i == 1:
                 break
+            rollList = []
             for x in range(int(dice)):
-                print(random.randint(1,6))
+                die = random.randint(1,6)
+                rollList.append(die)
+                print(die)
+
+            #data_entry(gameTitle = game, id = gameID, count = dice, roll = sum(rollList))
 
             while True:
-                next = input_valid("(a) Roll Again\n(b) Change # of Dice\n(c) View game stats\n(d) Exit Program\n\nWhat next?: ")
+                next = input_valid("(a) Roll Again\n(b) Change # of Dice\n(c) View game stats\n(d) Exit Program\n\nWhat next?: ", 4)
                 if next == 'A':
                     break
                 elif next == 'B':
