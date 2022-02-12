@@ -42,6 +42,7 @@ def run_program():
             elif choice == 'B': 
                 print('This option is in development, please check-in later.')  
             else:
+                q = 2
                 break
         
         if q == 2: #checking from ending selection input - if selected close program, q=2, which should break from program loop
