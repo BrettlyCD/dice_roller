@@ -48,11 +48,11 @@ def run_program():
             break
 
         gameChoice = input_valid("(a) Settler's of Catan\n(b) Machi Koro\n(c) Other\n", 3)
-        if choice == 'A':
+        if gameChoice == 'A':
             game = game_options[0]
-        elif choice == 'B':
+        elif gameChoice == 'B':
             game = game_options[1]
-        elif choice == 'C':
+        elif gameChoice == 'C':
             game = game_options[2]
 
         gameID = str(shortuuid.uuid())

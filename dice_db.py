@@ -6,8 +6,9 @@ import matplotlib.dates as mdates
 from matplotlib import style
 style.use('fivethirtyeight')
 
-conn = sqlite3.connect('dice.db')
-c = conn.cursor()
+def open_connection():
+    conn = sqlite3.connect('dice.db')
+    c = conn.cursor()
 
 def create_table(): 
     c.execute('CREATE TABLE IF NOT EXISTS rollHistory(rollID INTEGER PRIMARY KEY, datestamp TEXT, gameTitle TEXT, gameID TEXT, diceCount INTEGER, value INTEGER)')
@@ -33,8 +34,9 @@ def data_delete():
     c.execute("DELETE FROM rollHistory")
     conn.commit()
 
-c.close()
-conn.close()
+def close_connection():
+    c.close()
+    conn.close()
 
 
 
